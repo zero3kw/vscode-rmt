@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - The command is no longer shown in the Command Palette when nothing is selected.
+- After tags are removed, each selection collapses to its cursor instead of staying highlighted.
 - `@types/vscode` is pinned to 1.85.0, matching the minimum supported VS Code version.
 - Development toolchain: pnpm, Node 24, ESLint flat config with type-aware rules, Jest 30, TypeScript 5.9.
 - The VSIX no longer includes development files (lockfile, configs, devcontainer).

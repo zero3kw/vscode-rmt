@@ -9,11 +9,16 @@ export function activate(context: vscode.ExtensionContext): void {
         }
 
         const { document, selections } = editor;
-        await editor.edit(editBuilder => {
+        const applied = await editor.edit(editBuilder => {
             for (const selection of selections) {
                 editBuilder.replace(selection, removeMarkupTags(document.getText(selection)));
             }
         });
+
+        if (applied) {
+            // Collapse each selection to its cursor so the cleaned text is not left highlighted.
+            editor.selections = editor.selections.map(s => new vscode.Selection(s.active, s.active));
+        }
     });
 
     context.subscriptions.push(disposable);
