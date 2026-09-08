@@ -2,13 +2,13 @@
   "name": "vscode-rmt",
   "displayName": "Remove Markup Tags",
   "description": "Efficiently strips HTML/XML markup tags from selected text, enhancing code readability and cleanup.",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "publisher": "zero3",
   "icon": "icon.png",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/zero3kw/vscode-rmt"
-	},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zero3kw/vscode-rmt"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -23,25 +23,35 @@
         "command": "extension.removeMarkupTags",
         "title": "Remove Markup Tags"
       }
-    ]
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "extension.removeMarkupTags",
+          "when": "editorHasSelection"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "pnpm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "pnpm run compile && pnpm run lint",
-    "lint": "eslint src --ext ts",
+    "lint": "eslint src",
     "test": "jest"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.11",
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "~18.19.3",
-    "@types/vscode": "^1.85.0",
-    "@typescript-eslint/eslint-plugin": "^6.13.2",
-    "@typescript-eslint/parser": "^6.13.2",
-    "eslint": "^8.55.0",
-    "jest": "^29.7.0",
-    "ts-jest": "^29.1.1",
-    "typescript": "^5.3.3"
-  }
+    "@types/vscode": "1.85.0",
+    "eslint": "^10.10.0",
+    "jest": "^30.5.1",
+    "ts-jest": "^29.4.12",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.69.0"
+  },
+  "packageManager": "pnpm@12.3.4"
 }

@@ -1,11 +1,26 @@
+# Whitelist: ignore every top-level entry, then re-include only what belongs in the repo.
+# `/*` is root-anchored, so re-including a directory brings in its whole contents.
+/*
+
+# Directories
+!/.devcontainer/
+!/src/
+
+# Root files
+!/.gitignore
+!/.nvmrc
+!/.vscodeignore
+!/CHANGELOG.md
+!/LICENSE.md
+!/README.md
+!/eslint.config.mjs
+!/icon.png
+!/jest.config.js
+!/package.json
+!/pnpm-lock.yaml
+!/pnpm-workspace.yaml
+!/tsconfig.json
+
+# Never track these, even inside re-included directories
 .DS_Store
 *.log
-node_modules/
-out/
-pnpm-lock.yaml
-package-lock.json
-.vscode-test/
-.vscode-test.mjs
-.vscode/
-.pnpm-store/
-*.vsix
