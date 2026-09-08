@@ -2,6 +2,8 @@
 
 This Visual Studio Code extension provides a convenient way to remove HTML or XML markup tags from selected text within the editor.
 
+![Remove Markup Tags in action](images/demo.gif)
+
 ## Features
 
 - Remove markup tags from selected text.

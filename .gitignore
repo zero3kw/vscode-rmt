@@ -5,6 +5,11 @@
 # Directories
 !/.devcontainer/
 !/src/
+!/images/
+!/.vscode/
+/.vscode/*
+!/.vscode/launch.json
+!/.vscode/tasks.json
 
 # Root files
 !/.gitignore
