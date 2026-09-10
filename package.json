@@ -31,6 +31,29 @@
           "when": "editorHasSelection"
         }
       ]
+    },
+    "configuration": {
+      "title": "Remove Markup Tags",
+      "properties": {
+        "removeMarkupTags.removeScriptAndStyleContent": {
+          "type": "boolean",
+          "default": true,
+          "scope": "language-overridable",
+          "description": "Remove <script> and <style> elements together with their contents, not just their tags."
+        },
+        "removeMarkupTags.decodeEntities": {
+          "type": "boolean",
+          "default": true,
+          "scope": "language-overridable",
+          "description": "Decode &lt; &gt; &amp; &quot; &apos; &nbsp; and numeric character references (&#8212; / &#x2014;) after removing tags."
+        },
+        "removeMarkupTags.replaceLineBreaks": {
+          "type": "boolean",
+          "default": true,
+          "scope": "language-overridable",
+          "description": "Replace <br> tags with a line break instead of removing them."
+        }
+      }
     }
   },
   "scripts": {

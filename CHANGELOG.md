@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Multi-cursor support: every selection is processed in a single edit (one undo step).
+- Plain-text conversion: `<script>`/`<style>` elements are removed with their contents and character references (`&amp;`, `&lt;`, `&nbsp;`, `&#8212;`, …) are decoded, and `<br>` becomes a line break. Each can be turned off with `removeMarkupTags.removeScriptAndStyleContent` / `removeMarkupTags.decodeEntities` / `removeMarkupTags.replaceLineBreaks` (language-overridable).
 
 ### Changed
 
@@ -24,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A `<` that does not start a tag (`a < b`, an unterminated `<foo`) is left untouched instead of deleting text up to the next `>` or the end of the selection.
 - Comments and quoted attribute values containing `>` are removed cleanly instead of leaving fragments behind.
 - XML element names with non-ASCII characters are recognized.
+- CDATA sections keep their contents instead of being removed whole.
 
 ## [1.0.1]
 

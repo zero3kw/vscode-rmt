@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { removeMarkupTags } from './removeMarkupTags';
+import { removeMarkupTags, type RemoveMarkupTagsOptions } from './removeMarkupTags';
 
 export function activate(context: vscode.ExtensionContext): void {
     const disposable = vscode.commands.registerCommand('extension.removeMarkupTags', async () => {
@@ -9,9 +9,17 @@ export function activate(context: vscode.ExtensionContext): void {
         }
 
         const { document, selections } = editor;
+        const config = vscode.workspace.getConfiguration('removeMarkupTags', document);
+        const eol = document.eol === vscode.EndOfLine.CRLF ? '\r\n' : '\n';
+        const options: RemoveMarkupTagsOptions = {
+            removeScriptAndStyleContent: config.get('removeScriptAndStyleContent', true),
+            decodeEntities: config.get('decodeEntities', true),
+            lineBreak: config.get('replaceLineBreaks', true) ? eol : null,
+        };
+
         const applied = await editor.edit(editBuilder => {
             for (const selection of selections) {
-                editBuilder.replace(selection, removeMarkupTags(document.getText(selection)));
+                editBuilder.replace(selection, removeMarkupTags(document.getText(selection), options));
             }
         });
 
