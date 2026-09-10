@@ -17,8 +17,8 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm test
-      # npx rather than pnpm dlx: pnpm refuses to run the install scripts of vsce's
-      # native dependencies (keytar, vsce-sign) without an explicit allow-list.
+      # npx rather than pnpm dlx: pnpm does not run the install scripts of vsce's
+      # native dependencies (keytar, vsce-sign) unless they are explicitly allowed.
       - run: npx --yes @vscode/vsce package --out remove-markup-tags.vsix
       - uses: actions/upload-artifact@v4
         with:

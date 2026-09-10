@@ -14,7 +14,7 @@ export default defineConfig(
         },
         plugins: { '@stylistic': stylistic },
         rules: {
-            // VS Code APIs return Thenable, not Promise; checkThenables makes them count.
+            // VS Code APIs return Thenable, not Promise; checkThenables includes them in the check.
             '@typescript-eslint/no-floating-promises': ['error', { checkThenables: true }],
             '@typescript-eslint/naming-convention': [
                 'warn',

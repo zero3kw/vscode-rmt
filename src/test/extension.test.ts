@@ -3,7 +3,7 @@ import { join } from 'path';
 import * as vscode from 'vscode';
 import { activate } from '../extension';
 
-// The real 'vscode' module only exists inside VS Code; provide just what activate() touches.
+// The real 'vscode' module only exists inside VS Code; provide only what activate() uses.
 jest.mock('vscode', () => {
     class Position {
         constructor(readonly line: number, readonly character: number) {}

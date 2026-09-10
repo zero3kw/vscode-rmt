@@ -9,15 +9,15 @@ Strip HTML/XML markup from the selected text in Visual Studio Code, leaving just
 ## Features
 
 - Removes tags, comments, doctype and processing instructions from every selection — multi-cursor selections included — as a single undoable edit.
-- Turns HTML into plain text by default: `<script>` and `<style>` elements are dropped together with their contents, character references such as `&amp;`, `&lt;`, `&nbsp;` and `&#8212;` are decoded, and `<br>` becomes a line break. Each of these can be switched off (see [Settings](#settings)).
-- Ordinary text is left alone, including comparisons such as `a < b` and any `>` inside comments or attribute values. CDATA sections keep their contents.
+- Converts HTML to plain text by default: `<script>` and `<style>` elements are dropped together with their contents, character references such as `&amp;`, `&lt;`, `&nbsp;` and `&#8212;` are decoded, and `<br>` becomes a line break. Each of these can be switched off (see [Settings](#settings)).
+- Text that is not markup is not changed. This includes comparisons such as `a < b` and any `>` inside comments or attribute values. CDATA sections keep their contents.
 - Works with XML as well as HTML, including non-ASCII element names.
 
 ## Usage
 
-1. Select the text that contains markup. Multiple cursors are fine.
+1. Select the text that contains markup. Multiple cursors are supported.
 2. Open the Command Palette (`Ctrl+Shift+P`, or `Cmd+Shift+P` on macOS) and run **Remove Markup Tags**. The command is listed only while something is selected.
-3. Each selection is replaced by its text content and the selection is cleared. Use Undo to get the original back.
+3. Each selection is replaced by its text content and the selection is cleared. Use Undo to restore the original text.
 
 To bind a key, add a shortcut for `extension.removeMarkupTags` in Keyboard Shortcuts (`Ctrl+K Ctrl+S`).
 
@@ -42,8 +42,8 @@ All of them can be overridden per language — for example, to keep character re
 The extension works on the text itself rather than parsing it as a document:
 
 - Only the named character references listed above are decoded; others such as `&copy;` are left as written. Numeric references always work.
-- A `<script>` or `<style>` element without a closing tag loses only its opening tag; its contents stay.
-- Anything that looks like a tag is removed, including `<T>` in generic code.
+- For a `<script>` or `<style>` element without a closing tag, only the opening tag is removed; its contents remain.
+- Any text in the form of a tag is removed, including `<T>` in generic code.
 
 ## Installation
 

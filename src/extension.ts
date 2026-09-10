@@ -24,7 +24,7 @@ export function activate(context: vscode.ExtensionContext): void {
         });
 
         if (applied) {
-            // Collapse each selection to its cursor so the cleaned text is not left highlighted.
+            // Collapse each selection to its cursor so the replaced text is not left selected.
             editor.selections = editor.selections.map(s => new vscode.Selection(s.active, s.active));
         }
     });

@@ -1,5 +1,5 @@
 # Whitelist: ignore every top-level entry, then re-include only what belongs in the repo.
-# `/*` is root-anchored, so re-including a directory brings in its whole contents.
+# `/*` matches only top-level entries, so re-including a directory includes its whole contents.
 /*
 
 # Directories

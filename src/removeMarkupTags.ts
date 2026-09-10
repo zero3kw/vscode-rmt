@@ -21,8 +21,8 @@ const LINE_BREAK = String.raw`<(?<br>br)${NAME_END}${ATTRIBUTES}>`;
 const TAG = String.raw`</?[\p{L}_:!?]${ATTRIBUTES}>`;
 const CHARACTER_REFERENCE = String.raw`&(?<reference>#[xX][0-9a-fA-F]{1,6}|#[0-9]{1,7}|[a-zA-Z]+);`;
 
-// Everything is matched in a single pass so that text handed back verbatim (CDATA contents,
-// decoded references) is never re-examined for tags.
+// Everything is matched in a single pass so that text that is output unchanged (CDATA contents,
+// decoded references) is not scanned for tags again.
 const TOKENS = new RegExp(
     [RAW_TEXT_ELEMENT, CDATA_SECTION, COMMENT, LINE_BREAK, TAG, CHARACTER_REFERENCE].join('|'), 'giu');
 const TOKENS_KEEPING_RAW_TEXT = new RegExp(
