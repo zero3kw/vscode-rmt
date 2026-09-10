@@ -1,5 +1,7 @@
 # Remove Markup Tags
 
+English | [日本語](README.ja.md)
+
 Strip HTML/XML markup from the selected text in Visual Studio Code, leaving just the text.
 
 ![Remove Markup Tags in action](images/demo.gif)
@@ -8,14 +10,14 @@ Strip HTML/XML markup from the selected text in Visual Studio Code, leaving just
 
 - Removes tags, comments, doctype and processing instructions from every selection — multi-cursor selections included — as a single undoable edit.
 - Turns HTML into plain text by default: `<script>` and `<style>` elements are dropped together with their contents, character references such as `&amp;`, `&lt;`, `&nbsp;` and `&#8212;` are decoded, and `<br>` becomes a line break. Each of these can be switched off (see [Settings](#settings)).
-- Leaves non-markup alone: comparison operators (`a < b`), an unterminated `<`, and `>` inside comments or quoted attribute values do not confuse it. CDATA sections keep their contents.
+- Ordinary text is left alone, including comparisons such as `a < b` and any `>` inside comments or attribute values. CDATA sections keep their contents.
 - Works with XML as well as HTML, including non-ASCII element names.
 
 ## Usage
 
 1. Select the text that contains markup. Multiple cursors are fine.
 2. Open the Command Palette (`Ctrl+Shift+P`, or `Cmd+Shift+P` on macOS) and run **Remove Markup Tags**. The command is listed only while something is selected.
-3. Each selection is replaced by its text content and collapsed to the cursor. Use Undo to get the original back.
+3. Each selection is replaced by its text content and the selection is cleared. Use Undo to get the original back.
 
 To bind a key, add a shortcut for `extension.removeMarkupTags` in Keyboard Shortcuts (`Ctrl+K Ctrl+S`).
 
