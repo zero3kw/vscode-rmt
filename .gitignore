@@ -4,6 +4,7 @@
 
 # Directories
 !/.devcontainer/
+!/.github/
 !/src/
 !/images/
 !/.vscode/
@@ -12,6 +13,7 @@
 !/.vscode/tasks.json
 
 # Root files
+!/.gitattributes
 !/.gitignore
 !/.nvmrc
 !/.vscodeignore

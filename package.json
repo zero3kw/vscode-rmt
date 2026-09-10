@@ -1,14 +1,27 @@
 {
   "name": "vscode-rmt",
   "displayName": "Remove Markup Tags",
-  "description": "Efficiently strips HTML/XML markup tags from selected text, enhancing code readability and cleanup.",
+  "description": "Remove HTML/XML markup from selected text, leaving plain text.",
+  "keywords": [
+    "html",
+    "xml",
+    "strip tags",
+    "remove tags",
+    "plain text",
+    "markup"
+  ],
   "version": "1.1.0",
   "publisher": "zero3",
+  "license": "MIT",
   "icon": "icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/zero3kw/vscode-rmt"
   },
+  "bugs": {
+    "url": "https://github.com/zero3kw/vscode-rmt/issues"
+  },
+  "homepage": "https://github.com/zero3kw/vscode-rmt#readme",
   "engines": {
     "vscode": "^1.85.0"
   },
