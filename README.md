@@ -1,37 +1,61 @@
-# Remove Markup Tags Extension for Visual Studio Code
+# Remove Markup Tags
 
-This Visual Studio Code extension provides a convenient way to remove HTML or XML markup tags from selected text within the editor.
+Strip HTML/XML markup from the selected text in Visual Studio Code, leaving just the text.
 
 ![Remove Markup Tags in action](images/demo.gif)
 
 ## Features
 
-- Remove markup tags from selected text.
-- Supports both HTML and XML markup.
+- Removes tags, comments, doctype and processing instructions from every selection — multi-cursor selections included — as a single undoable edit.
+- Turns HTML into plain text by default: `<script>` and `<style>` elements are dropped together with their contents, character references such as `&amp;`, `&lt;`, `&nbsp;` and `&#8212;` are decoded, and `<br>` becomes a line break. Each of these can be switched off (see [Settings](#settings)).
+- Leaves non-markup alone: comparison operators (`a < b`), an unterminated `<`, and `>` inside comments or quoted attribute values do not confuse it. CDATA sections keep their contents.
+- Works with XML as well as HTML, including non-ASCII element names.
 
 ## Usage
 
-1. Select the text containing markup tags within the editor.
-2. Open the command palette (`Ctrl+Shift+P` or `Cmd+Shift+P` on macOS).
-3. Type "Remove Markup Tags" and select the corresponding command.
-4. The selected text will be processed, and the markup tags will be removed.
+1. Select the text that contains markup. Multiple cursors are fine.
+2. Open the Command Palette (`Ctrl+Shift+P`, or `Cmd+Shift+P` on macOS) and run **Remove Markup Tags**. The command is listed only while something is selected.
+3. Each selection is replaced by its text content and collapsed to the cursor. Use Undo to get the original back.
+
+To bind a key, add a shortcut for `extension.removeMarkupTags` in Keyboard Shortcuts (`Ctrl+K Ctrl+S`).
+
+## Settings
+
+| Setting | Default | Description |
+| --- | --- | --- |
+| `removeMarkupTags.removeScriptAndStyleContent` | `true` | Drop `<script>` and `<style>` elements together with their contents, not just their tags. |
+| `removeMarkupTags.decodeEntities` | `true` | Decode `&lt;` `&gt;` `&amp;` `&quot;` `&apos;` `&nbsp;` and numeric character references after removing tags. |
+| `removeMarkupTags.replaceLineBreaks` | `true` | Replace `<br>` with a line break (matching the document's end-of-line sequence) instead of removing it. |
+
+All of them can be overridden per language — for example, to keep character references intact while editing HTML source:
+
+```json
+"[html]": {
+  "removeMarkupTags.decodeEntities": false
+}
+```
+
+## Limitations
+
+The extension works on the text itself rather than parsing it as a document:
+
+- Only the named character references listed above are decoded; others such as `&copy;` are left as written. Numeric references always work.
+- A `<script>` or `<style>` element without a closing tag loses only its opening tag; its contents stay.
+- Anything that looks like a tag is removed, including `<T>` in generic code.
 
 ## Installation
 
-1. Launch Visual Studio Code.
-2. Go to the Extensions view by clicking on the square icon on the sidebar.
-3. Search for "Remove Markup Tags" and click "Install" to install the extension.
+Search for **Remove Markup Tags** in the Extensions view (`Ctrl+Shift+X`), or open Quick Open (`Ctrl+P`) and run `ext install zero3.vscode-rmt`.
 
-## How to Use
+## Development
 
-1. Activate the extension by selecting some text in the editor.
-2. Use the command palette to run the "Remove Markup Tags" command.
-3. The selected text will be modified, removing all HTML and XML markup tags.
+```bash
+pnpm install
+pnpm test   # compile, lint, and run the Jest suite
+```
+
+Press `F5` to launch an Extension Development Host with a sample file open.
 
 ## License
 
-This extension is licensed under the [MIT License](LICENSE.md).
-
----
-
-**Enjoy!** 🚀
+[MIT](LICENSE.md)
