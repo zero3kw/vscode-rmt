@@ -58,6 +58,13 @@ pnpm test   # コンパイル、lint、Jest のテストを実行
 
 `F5` を押すと、サンプルファイルを開いた状態で Extension Development Host が起動します。
 
+### リリース
+
+1. `package.json` のバージョンを上げ、`CHANGELOG.md` にその版の節を追加します。
+2. コミットしてから、同じバージョンのタグを push します：`git tag v1.2.0 && git push origin v1.2.0`
+
+`Release` ワークフローがテストを実行し、Marketplace に公開し、VSIX を添付した GitHub Release を作成します。Marketplace のトークンをリポジトリの Secret `VSCE_PAT` に登録しておく必要があります。
+
 ## ライセンス
 
 [MIT](LICENSE.md)

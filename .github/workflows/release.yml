@@ -1,0 +1,53 @@
+name: Release
+
+# Pushing a tag such as v1.2.0 publishes that version to the Marketplace and
+# creates a GitHub Release with the VSIX attached. The tag must match the
+# version in package.json.
+
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
+
+      - name: Check that the tag matches package.json
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match package.json version $version"
+            exit 1
+          fi
+
+      # npx rather than pnpm dlx: pnpm does not run the install scripts of vsce's
+      # native dependencies (keytar, vsce-sign) unless they are explicitly allowed.
+      - run: npx --yes @vscode/vsce package --out "vscode-rmt-${GITHUB_REF_NAME#v}.vsix"
+
+      - name: Publish to the Marketplace
+        run: npx --yes @vscode/vsce publish --packagePath vscode-rmt-*.vsix
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
+      - name: Create the GitHub Release
+        run: |
+          # Release notes are the CHANGELOG section for this version, without its heading.
+          awk -v version="${GITHUB_REF_NAME#v}" '
+            /^## \[/ { in_section = index($0, "## [" version "]") == 1; next }
+            in_section { print }
+          ' CHANGELOG.md > release-notes.md
+          gh release create "$GITHUB_REF_NAME" vscode-rmt-*.vsix \
+            --title "$GITHUB_REF_NAME" --notes-file release-notes.md
+        env:
+          GH_TOKEN: ${{ github.token }}

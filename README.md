@@ -58,6 +58,13 @@ pnpm test   # compile, lint, and run the Jest suite
 
 Press `F5` to launch an Extension Development Host with a sample file open.
 
+### Releasing
+
+1. Set the new version in `package.json` and add a section for it to `CHANGELOG.md`.
+2. Commit, then push a tag with the same version: `git tag v1.2.0 && git push origin v1.2.0`.
+
+The `Release` workflow runs the tests, publishes the version to the Marketplace, and creates a GitHub Release with the VSIX attached. It needs a Marketplace token stored as the `VSCE_PAT` repository secret.
+
 ## License
 
 [MIT](LICENSE.md)
